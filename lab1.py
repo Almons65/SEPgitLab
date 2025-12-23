@@ -78,8 +78,10 @@ def main():
     app = QApplication(sys.argv)
     w = Simple_drawing_window()
     w2 = Simple_drawing_window2()
+    w3 = Simple_drawing_window3()
     w.show()
     w2.show()
+    w3.show()
     return app.exec()
 
 if __name__ == "__main__":
