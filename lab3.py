@@ -115,3 +115,45 @@ class Pole(object):
         disk.showdisk()
 
         return disk
+
+class Hanoi(object):
+    def __init__(self, n=3, start="A", workspace="B", destination="C"):
+        self.startp = Pole(start, -200, 0)
+        self.workspacep = Pole(workspace, 0, 0)
+        self.destinationp = Pole(destination, 200, 0)
+        
+        self.startp.showpole()
+        self.workspacep.showpole()
+        self.destinationp.showpole()
+        
+        for i in range(n):
+            width = 120 - (i * 30) 
+            d = Disk("d" + str(i), 0, 0, 20, width)
+            self.startp.pushdisk(d)
+
+    def move_disk(self, start, destination):
+        disk = start.popdisk()
+      
+        disk.cleardisk() 
+        destination.pushdisk(disk)
+
+    def move_tower(self, n, s, d, w):
+        if n == 1:
+            self.move_disk(s, d)
+        else:
+            self.move_tower(n-1, s, w, d)
+            self.move_disk(s, d)
+            self.move_tower(n-1, w, d, s)
+
+    def solve(self):
+        self.move_tower(3, self.startp, self.destinationp, self.workspacep)
+
+if __name__ == "__main__":
+    turtle.setup(800, 600)
+    turtle.speed(3) 
+    turtle.hideturtle()
+    
+    h = Hanoi()
+    h.solve()
+    
+    turtle.done()
